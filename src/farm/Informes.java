@@ -11,7 +11,7 @@ public class Informes {
 	{
 		String codpac, nompac, op, codp, codm, enfpac, codmed = null, nommed = null, espmed, codtem;
 		int op2, sw, sw1;
-		Informes inf = new Informes();
+		//Informes inf = new Informes();
 
 		do {
 			Bdatoa.ps("   ..............................................." + "\n");

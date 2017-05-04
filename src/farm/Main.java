@@ -47,7 +47,13 @@ public class Main {
 				IngresoDeDatos po = new IngresoDeDatos();
 			} else {
 				if (op1 == 2) // seleción informes
-				{}
+				{
+					for(int i=0; i<20; i++)
+					{
+						System.out.println(""); 
+					}
+					Informes informes = new Informes();
+				}
 			}
 		} while (op1 != 3);
 

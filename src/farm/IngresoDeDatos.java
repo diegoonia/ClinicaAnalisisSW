@@ -31,7 +31,7 @@ public class IngresoDeDatos {
 			switch (op2) {
 			case 1: // ingreso de datos, datos del paciente
 				DataOutputStream datopac = null;
-				datopac = new DataOutputStream(new FileOutputStream("C:\\datopac.txt"));
+				datopac = new DataOutputStream(new FileOutputStream("datopac.txt"));
 				try {
 					do {
 						Bdatoa.ps("   ..............................................." + "\n");
@@ -60,7 +60,7 @@ public class IngresoDeDatos {
 			// ingreso de datos, situacion del paciente
 			case 2:
 				DataOutputStream situpac = null;
-				situpac = new DataOutputStream(new FileOutputStream("C:\\situpac.txt"));
+				situpac = new DataOutputStream(new FileOutputStream("situpac.txt"));
 
 				try {
 					do {
@@ -92,7 +92,7 @@ public class IngresoDeDatos {
 
 			case 3:
 				DataOutputStream datomed = null;
-				datomed = new DataOutputStream(new FileOutputStream("C:\\datomed.txt"));
+				datomed = new DataOutputStream(new FileOutputStream("datomed.txt"));
 				try {
 					do {
 
@@ -120,7 +120,7 @@ public class IngresoDeDatos {
 					} while (op.equals("S") || op.equals("s"));
 				} catch (IOException ioe) {
 				}
-				;
+				
 				datomed.close();
 			}
 		} while (op2 != 4);
