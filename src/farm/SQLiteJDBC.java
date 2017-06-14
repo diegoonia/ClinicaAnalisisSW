@@ -13,14 +13,9 @@ public  class SQLiteJDBC
 		
 		try 
 		{
-			if (conn == null) 
-			{
-
 				Class.forName("org.sqlite.JDBC");
 				conn = DriverManager.getConnection("jdbc:sqlite:test.db");
 				conn.setAutoCommit(false);
-			}
-
 		} 
 		catch (ClassNotFoundException cnfe) 
 		{
@@ -36,7 +31,7 @@ public  class SQLiteJDBC
 	}
 
 	
-	public static ResultSet ejecutarConsulta(String query) 
+	public static ResultSet ejecutarConsulta(String query,String tipo_consulta) 
 	{ 
 		ResultSet rs = null;
 		
@@ -44,7 +39,19 @@ public  class SQLiteJDBC
 		{
 			
 			sentencia = conn.createStatement();
-			rs = sentencia.executeQuery(query);
+			
+			if (tipo_consulta == "insert")
+			{
+				sentencia.executeUpdate(query);
+			}
+			
+			if (tipo_consulta == "select")
+			{
+				rs = sentencia.executeQuery(query);
+			}
+			
+			sentencia.close();
+
 		} 
 		catch ( Exception e ) 
 		{

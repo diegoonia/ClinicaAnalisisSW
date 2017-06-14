@@ -29,8 +29,6 @@ public class VentanaLogin extends JFrame {
 	 * Launch the application.
 	 */
 	public static void main(String[] args) {
-		mySQLCon = new SQLiteJDBC();
-		mySQLCon.getConnection();
 		abrir();
 	}
 
@@ -71,8 +69,10 @@ public class VentanaLogin extends JFrame {
 				}
 				else
 				{ 
-					try {
-						if( mySQLCon.verificarUserYPassword(txtUsuario.getText(), String.valueOf(txtContrasena.getPassword())))
+					try 
+					{
+						Usuario u = new Usuario(txtUsuario.getText(),String.valueOf(txtContrasena.getPassword()));
+						if(u.Valido())
 						{
 							JOptionPane.showMessageDialog(null, "TODO BIEN, ACA IRIA A LA PANTALLA PRINCIPAL");
 						}
@@ -80,9 +80,9 @@ public class VentanaLogin extends JFrame {
 						{
 							JOptionPane.showMessageDialog(null, "USUARIO O CONTRASEÑA INCORRECTOS");
 						}
-					} catch (HeadlessException e) {
-						e.printStackTrace();
-					} catch (SQLException e) {
+					} 
+					catch (Exception e) 
+					{
 						e.printStackTrace();
 					}
 				}

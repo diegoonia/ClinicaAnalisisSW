@@ -29,7 +29,7 @@ public class Paciente
 			if (this.Codigo != null && this.NombreYApellido != "")
 			{
 				SQLiteJDBC.conectar();
-				SQLiteJDBC.ejecutarConsulta("INSERT INTO paciente VALUES (" + this.Codigo +",'"+ this.NombreYApellido +"')");
+				SQLiteJDBC.ejecutarConsulta("INSERT INTO paciente VALUES (" + this.Codigo +",'"+ this.NombreYApellido +"')","insert");
 				SQLiteJDBC.cerrar();
 				return true;
 			}
@@ -53,15 +53,21 @@ public class Paciente
 		try
 		{
 			SQLiteJDBC.conectar();
-			ResultSet rs = SQLiteJDBC.ejecutarConsulta("SELECT * FROM paciente WHERE id = " + codigo);
-			while(rs.next())
+			ResultSet rs = SQLiteJDBC.ejecutarConsulta("SELECT * FROM paciente WHERE id = " + codigo,"select");
+			
+			if(rs.next())
 			{
 				this.Codigo = rs.getInt("id");
 				this.NombreYApellido = rs.getString("nombre_apellido");
+				SQLiteJDBC.cerrar();
+				return true;
+			}
+			else
+			{
+				SQLiteJDBC.cerrar();
+				return false;
 			}
 
-			SQLiteJDBC.cerrar();
-			return true;
 		}
 		catch ( Exception e ) 
 		{

@@ -16,13 +16,14 @@ import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import farm.Usuario;
 
-public class VentanaRegistrar extends JFrame {
+public class VentanaRegistrar extends JFrame 
+{
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField txtContrasena;
-	private JTextField txtNyAp;
 	private static SQLiteJDBC mySQLCon;
 
 	/**
@@ -31,9 +32,8 @@ public class VentanaRegistrar extends JFrame {
 	public static void abrir() {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
-				try {
-					mySQLCon = new SQLiteJDBC();
-					mySQLCon.getConnection();
+				try 
+				{
 					VentanaRegistrar frame = new VentanaRegistrar();
 					frame.setVisible(true);
 				} catch (Exception e) {
@@ -49,63 +49,69 @@ public class VentanaRegistrar extends JFrame {
 	public VentanaRegistrar() {
 		setTitle("REGISTRAR");
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 239);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(167, 102, 194, 19);
+		txtUsuario.setBounds(167, 75, 194, 19);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
 		JButton btnAceptar = new JButton("ACEPTAR");
 		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) 
+			{
 				
-				if( txtUsuario.getText()=="" && String.valueOf(txtContrasena.getPassword())=="" && txtNyAp.getText()=="" )
+				boolean datos_validos = true;
+				
+				if( txtUsuario.getText()=="" && String.valueOf(txtContrasena.getPassword())=="")
 				{
-					JOptionPane.showMessageDialog(null, "DEBE COMPLETAR TODOS LOS CAMPOS");
+					datos_validos = false;
+					JOptionPane.showMessageDialog(null, "Debe completar todos los campos");
 				}
 				else
 				{ 
-					try {
 						
-						try {
-						     Integer.parseInt(txtUsuario.getText()); // transformo el txtusuario a INT, si tira error va al catch
-						     if( mySQLCon.registrarMedico(txtUsuario.getText(), String.valueOf(txtContrasena.getPassword()), txtNyAp.getText() ))
-								{
-									JOptionPane.showMessageDialog(null, "TODO BIEN, ACA IRIA A LA PANTALLA PRINCIPAL");
-								}
-								else
-								{
-									JOptionPane.showMessageDialog(null, "ESE USUARIO YA EXISTE");
-								}
+						try 
+						{
+							Integer.parseInt(txtUsuario.getText()); // transformo el txtusuario a INT, si tira error va al catch
 						}
-						catch (NumberFormatException e) {
-							JOptionPane.showMessageDialog(null, "EL USUARIO DEBE SER NUMERICO");
+						catch (NumberFormatException e) 
+						{
+							datos_validos = false;
+							JOptionPane.showMessageDialog(null, "El usuario debe ser numerico");
 						}
 						
-						
-					} catch (HeadlessException e) {
-						e.printStackTrace();
-					} catch (SQLException e) {
-						e.printStackTrace();
-					}
+						if (datos_validos == true)
+						{
+							Usuario u = new Usuario(txtUsuario.getText(),String.valueOf(txtContrasena.getPassword()));
+							 
+							if(!u.Existe(txtUsuario.getText()))
+							{
+								u.Guardar();
+								JOptionPane.showMessageDialog(null, "TODO BIEN, ACA IRIA A LA PANTALLA PRINCIPAL");
+							}
+							else
+							{
+								JOptionPane.showMessageDialog(null, "ESE USUARIO YA EXISTE");
+							}
+						}
 				}
 			}
 		});
 		
-		btnAceptar.setBounds(48, 198, 140, 23);
+		btnAceptar.setBounds(48, 150, 140, 23);
 		contentPane.add(btnAceptar);
 		
 		JLabel lblUsuario = new JLabel("USUARIO");
-		lblUsuario.setBounds(25, 104, 67, 17);
+		lblUsuario.setBounds(25, 77, 67, 17);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblContrasena = new JLabel("CONTRASE\u00D1A");
-		lblContrasena.setBounds(25, 132, 104, 17);
+		lblContrasena.setBounds(25, 105, 104, 17);
 		contentPane.add(lblContrasena);
 		
 		JButton btnCancelar = new JButton("CANCELAR");
@@ -115,26 +121,17 @@ public class VentanaRegistrar extends JFrame {
 				dispose();
 			}
 		});
-		btnCancelar.setBounds(226, 198, 135, 23);
+		btnCancelar.setBounds(248, 150, 135, 23);
 		contentPane.add(btnCancelar);
 		
 		txtContrasena = new JPasswordField();
-		txtContrasena.setBounds(167, 130, 194, 19);
+		txtContrasena.setBounds(167, 103, 194, 19);
 		contentPane.add(txtContrasena);
 		
 		JLabel lblNewLabel = new JLabel("REGISTRARSE");
 		lblNewLabel.setFont(new Font("Tahoma", Font.BOLD, 17));
 		lblNewLabel.setBounds(147, 11, 140, 32);
 		contentPane.add(lblNewLabel);
-		
-		JLabel lblNewLabel_1 = new JLabel("NOMBRE Y APELLIDO");
-		lblNewLabel_1.setBounds(24, 79, 135, 14);
-		contentPane.add(lblNewLabel_1);
-		
-		txtNyAp = new JTextField();
-		txtNyAp.setColumns(10);
-		txtNyAp.setBounds(167, 76, 194, 19);
-		contentPane.add(txtNyAp);
 		
 		
 	}
