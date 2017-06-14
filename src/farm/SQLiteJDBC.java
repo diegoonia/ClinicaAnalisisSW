@@ -8,11 +8,10 @@ public class SQLiteJDBC {
 	private static Connection conn;
 	private static java.sql.Statement sentencia;
 
-	public SQLiteJDBC() {
-
+	public SQLiteJDBC() { // CONSTRUCTOR
 	}
 
-	public Connection getConnection() {
+	public Connection getConnection() { // SE ESTABLECE CONEXION
 		try {
 			if (conn == null) {
 
@@ -32,7 +31,7 @@ public class SQLiteJDBC {
 	
 	////////////////////AGREGACION DE NUEVOS REG. A LA BD/////////////////////
 	
-	public int registrarMedico(String codMedico, String password, String nombreYAppellido) throws SQLException {
+	public int registrarMedico(String codMedico, String password, String nombreYApellido) throws SQLException {
 		sentencia = null;
 		boolean respuesta = false;
 		try {
@@ -54,7 +53,7 @@ public class SQLiteJDBC {
 			} else {
 				sentencia = conn.createStatement();
 				query = "INSERT INTO `medicos`(`codMedico`, `password`, `nombreYApellido`)  VALUES(\"" + codMedico
-						+ "\",\"" + password + "\",\"" + nombreYAppellido + "\")";
+						+ "\",\"" + password + "\",\"" + nombreYApellido + "\")";
 				sentencia.execute(query);
 				sentencia.close();
 				conn.commit();
@@ -190,7 +189,7 @@ public class SQLiteJDBC {
 		
 		try {
 	        sentencia = conn.createStatement();
-	        String sql = "CREATE TABLE consultas (id INTEGER PRIMARY KEY,codPaciente CHAR(15),codMedico CHAR(15),diagnostico CHAR(50))";
+	        String sql = "CREATE TABLE consultas (id INTEGER NOT NULL PRIMARY KEY AUTOINCREMENT,codPaciente CHAR(15),codMedico CHAR(15),diagnostico CHAR(50))";
 	        sentencia.executeUpdate(sql);
 	        sentencia.close();
 
@@ -198,6 +197,53 @@ public class SQLiteJDBC {
 				JOptionPane.showMessageDialog(null, "Error al crear la tabla", "Error", JOptionPane.ERROR_MESSAGE);
 	        System.exit(0);
 	      }
+	}
+	
+	public static void mostrarConsultas(){
+		sentencia = null;
+		boolean respuesta = false;
+		try {
+			// Tabla Consultas: id(auto incremental) | codPaciente | codMedico | diagnostico
+			sentencia = conn.createStatement();
+			String query = "SELECT * FROM consultas";
+			ResultSet rs = sentencia.executeQuery(query);
+			   ResultSetMetaData rsmd = rs.getMetaData();
+			   System.out.println("querying SELECT * FROM consultas");
+			   int columnsNumber = rsmd.getColumnCount();
+			   
+			 while (rs.next()) {
+			       for (int i = 1; i <= columnsNumber; i++) {
+			           if (i > 1) System.out.print(",  ");
+			           String columnValue = rs.getString(i);
+			           System.out.print(columnValue + " " + rsmd.getColumnName(i));
+			       }
+			       System.out.println("");
+			   }
+		} catch (Exception e) { }
+	}
+	
+	
+	public static void consultaPorMedico(int codMedico){
+		sentencia = null;
+		boolean respuesta = false;
+		try {
+			// Tabla Consultas: id(auto incremental) | codPaciente | codMedico | diagnostico
+			sentencia = conn.createStatement();
+			String query = "SELECT * FROM consultas WHERE codMedico = \"" + codMedico + "\"";
+			ResultSet rs = sentencia.executeQuery(query);
+			   ResultSetMetaData rsmd = rs.getMetaData();
+			   System.out.println("querying SELECT * FROM consultas WHERE codMedico = \"" + codMedico + "\"");
+			   int columnsNumber = rsmd.getColumnCount();
+			   
+			 while (rs.next()) {
+			       for (int i = 1; i <= columnsNumber; i++) {
+			           if (i > 1) System.out.print(",  ");
+			           String columnValue = rs.getString(i);
+			           System.out.print(columnValue + " " + rsmd.getColumnName(i));
+			       }
+			       System.out.println("");
+			   }
+		} catch (Exception e) { }
 	}
 	
 	////////////////////////////////////////////////////////////////////////
@@ -209,7 +255,11 @@ public class SQLiteJDBC {
   	  SQLiteJDBC mySQLCon = new SQLiteJDBC();
   	  mySQLCon.getConnection();
   	  //crearTablaConsultas();
-  		mySQLCon.registrarConsulta("110","999","Pulmonia");
+  	  //mySQLCon.registrarP("222", "jorgito", "jorge perez");
+  	 // mySQLCon.crearTablaConsultas();
+  		//mySQLCon.registrarConsulta("222","998","Pulmonia cuadruple");
+  	  //mySQLCon.consultaPorMedico(998);
+  	   //mySQLCon.mostrarConsultas();
   		//System.out.println(mySQLCon.verificarUserYPassword("888", "pepe"));
   		mySQLCon.close();
       
