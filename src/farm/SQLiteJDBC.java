@@ -31,7 +31,7 @@ public class SQLiteJDBC {
 	
 	////////////////////AGREGACION DE NUEVOS REG. A LA BD/////////////////////
 	
-	public int registrarMedico(String codMedico, String password, String nombreYApellido) throws SQLException {
+	public boolean registrarMedico(String codMedico, String password, String nombreYApellido) throws SQLException {
 		sentencia = null;
 		boolean respuesta = false;
 		try {
@@ -47,8 +47,8 @@ public class SQLiteJDBC {
 			}
 			if (respuesta == true) {
 
-				JOptionPane.showMessageDialog(null, "Medico ya registrado!", "Error", JOptionPane.ERROR_MESSAGE);
-				return 0;
+				//JOptionPane.showMessageDialog(null, "Medico ya registrado!", "Error", JOptionPane.ERROR_MESSAGE);
+				return false;
 				
 			} else {
 				sentencia = conn.createStatement();
@@ -57,18 +57,18 @@ public class SQLiteJDBC {
 				sentencia.execute(query);
 				sentencia.close();
 				conn.commit();
-				JOptionPane.showMessageDialog(null, "Registro exitoso!");
-				return 1;
+				//JOptionPane.showMessageDialog(null, "Registro exitoso!");
+				return true;
 			}
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "Error en la consulta SQL", "Error", JOptionPane.ERROR_MESSAGE);
-			return 0;
+			//JOptionPane.showMessageDialog(null, "Error en la consulta SQL", "Error", JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "No se logro ejecutar Insertar Correctamente la consulta", "Error",
-					JOptionPane.ERROR_MESSAGE);
-			return 0;
+			//JOptionPane.showMessageDialog(null, "No se logro ejecutar Insertar Correctamente la consulta", "Error",
+					//JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 	}
 	
@@ -88,7 +88,7 @@ public class SQLiteJDBC {
 			}
 			if (respuesta == true) {
 
-				JOptionPane.showMessageDialog(null, "Consulta ya registrada!", "Error", JOptionPane.ERROR_MESSAGE);
+				//JOptionPane.showMessageDialog(null, "Consulta ya registrada!", "Error", JOptionPane.ERROR_MESSAGE);
 				return 0;
 				
 			} else {
@@ -103,13 +103,13 @@ public class SQLiteJDBC {
 			
 			}
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "Error en la consulta SQL", "Error", JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "Error en la consulta SQL", "Error", JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
 
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "No se logro ejecutar Insertar Correctamente la consulta", "Error",
-					JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "No se logro ejecutar Insertar Correctamente la consulta", "Error",
+					//JOptionPane.ERROR_MESSAGE);
 			return 0;
 		}
 	}
@@ -119,7 +119,7 @@ public class SQLiteJDBC {
 	////////////////////////////////////////////////////////////////////////
 	
 
-	public int verificarUserYPassword(String codMedico, String password) throws SQLException {
+	public boolean verificarUserYPassword(String codMedico, String password) throws SQLException {
 		// Verifica que el codMedico y la contraseña ingresada sean las correctas en la BD
 		sentencia = null;
 		boolean respuesta = false;
@@ -136,21 +136,21 @@ public class SQLiteJDBC {
 				sentencia.close();
 			}
 			if (respuesta == true) {
-				return 1;
+				return true;
 			} else {
-				return 0;
+				return false;
 			}
 
 		} catch (SQLException ex) {
-			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD", "Error",
-					JOptionPane.ERROR_MESSAGE);
-			return 0;
+			//JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD", "Error",
+					//JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 
 		catch (Exception e) {
-			JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD", "Error",
-					JOptionPane.ERROR_MESSAGE);
-			return 0;
+			//JOptionPane.showMessageDialog(null, "No se logro establecer conexión con la BD", "Error",
+					//JOptionPane.ERROR_MESSAGE);
+			return false;
 		}
 
 	}
@@ -162,8 +162,8 @@ public class SQLiteJDBC {
 				conn = null;
 			}
 		} catch (SQLException sqle) {
-			JOptionPane.showMessageDialog(null, "Error al intentar realizar la desconexion", "Error",
-					JOptionPane.ERROR_MESSAGE);
+			//JOptionPane.showMessageDialog(null, "Error al intentar realizar la desconexion", "Error",
+					//JOptionPane.ERROR_MESSAGE);
 		}
 	}
     
@@ -178,7 +178,7 @@ public class SQLiteJDBC {
 	        sentencia.close();
 
 	      } catch ( Exception e ) {
-				JOptionPane.showMessageDialog(null, "Error al crear la tabla", "Error", JOptionPane.ERROR_MESSAGE);
+				//JOptionPane.showMessageDialog(null, "Error al crear la tabla", "Error", JOptionPane.ERROR_MESSAGE);
 	        System.exit(0);
 	      }
 	}
@@ -194,7 +194,7 @@ public class SQLiteJDBC {
 	        sentencia.close();
 
 	      } catch ( Exception e ) {
-				JOptionPane.showMessageDialog(null, "Error al crear la tabla", "Error", JOptionPane.ERROR_MESSAGE);
+				//JOptionPane.showMessageDialog(null, "Error al crear la tabla", "Error", JOptionPane.ERROR_MESSAGE);
 	        System.exit(0);
 	      }
 	}
@@ -222,6 +222,28 @@ public class SQLiteJDBC {
 		} catch (Exception e) { }
 	}
 	
+	public static void mostrarMedicos(){
+		sentencia = null;
+		boolean respuesta = false;
+		try {
+			// Tabla Medicos: codMedico | password | nombreYApellido
+			sentencia = conn.createStatement();
+			String query = "SELECT * FROM medicos";
+			ResultSet rs = sentencia.executeQuery(query);
+			   ResultSetMetaData rsmd = rs.getMetaData();
+			   System.out.println("querying SELECT * FROM medicos");
+			   int columnsNumber = rsmd.getColumnCount();
+			   
+			 while (rs.next()) {
+			       for (int i = 1; i <= columnsNumber; i++) {
+			           if (i > 1) System.out.print(",  ");
+			           String columnValue = rs.getString(i);
+			           System.out.print(columnValue + " " + rsmd.getColumnName(i));
+			       }
+			       System.out.println("");
+			   }
+		} catch (Exception e) { }
+	}
 	
 	public static void consultaPorMedico(int codMedico){
 		sentencia = null;
@@ -246,6 +268,7 @@ public class SQLiteJDBC {
 		} catch (Exception e) { }
 	}
 	
+	
 	////////////////////////////////////////////////////////////////////////
 	
 	
@@ -260,6 +283,7 @@ public class SQLiteJDBC {
   		//mySQLCon.registrarConsulta("222","998","Pulmonia cuadruple");
   	  //mySQLCon.consultaPorMedico(998);
   	   //mySQLCon.mostrarConsultas();
+  	  mySQLCon.mostrarMedicos();
   		//System.out.println(mySQLCon.verificarUserYPassword("888", "pepe"));
   		mySQLCon.close();
       
