@@ -1,35 +1,75 @@
 package farm;
 
 import java.sql.*;
-
 import javax.swing.JOptionPane;
 
-public class SQLiteJDBC {
+public  class SQLiteJDBC 
+{
 	private static Connection conn;
 	private static java.sql.Statement sentencia;
 
-	public SQLiteJDBC() { // CONSTRUCTOR
-	}
-
-	public Connection getConnection() { // SE ESTABLECE CONEXION
-		try {
-			if (conn == null) {
+	public static void conectar() 
+	{ 
+		
+		try 
+		{
+			if (conn == null) 
+			{
 
 				Class.forName("org.sqlite.JDBC");
 				conn = DriverManager.getConnection("jdbc:sqlite:test.db");
 				conn.setAutoCommit(false);
 			}
 
-		} catch (ClassNotFoundException cnfe) {
+		} 
+		catch (ClassNotFoundException cnfe) 
+		{
 			JOptionPane.showMessageDialog(null, "No se encuentra el driver", "Error", JOptionPane.ERROR_MESSAGE);
 
-		} catch (SQLException sqle) {
+		} 
+		catch (SQLException sqle) 
+		{
 			JOptionPane.showMessageDialog(null, "Error al Intentar la conexion", "Error", JOptionPane.ERROR_MESSAGE);
 		}
-		return conn;
+
+	
+	}
+
+	
+	public static ResultSet ejecutarConsulta(String query) 
+	{ 
+		ResultSet rs = null;
+		
+		try 
+		{
+			
+			sentencia = conn.createStatement();
+			rs = sentencia.executeQuery(query);
+		} 
+		catch ( Exception e ) 
+		{
+			JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+
+		return rs;
+		
 	}
 	
-	////////////////////AGREGACION DE NUEVOS REG. A LA BD/////////////////////
+	public static void cerrar()
+	{
+		try
+		{
+			conn.close();
+		}
+		catch ( Exception e ) 
+		{
+			JOptionPane.showMessageDialog(null, "Error al cerrar la conexion", "Error", JOptionPane.ERROR_MESSAGE);
+		}
+		
+	}
+	
+	/*
+	 * CODIGO DEL SISTEMA BASE -- VIEJO -- UTILIZAR PARA COPIAR CODIGO
 	
 	public boolean registrarMedico(String codMedico, String password, String nombreYApellido) throws SQLException {
 		sentencia = null;
@@ -38,19 +78,22 @@ public class SQLiteJDBC {
 
 			// Tabla Medicos: codMedico | password | nombreYApellido
 			sentencia = conn.createStatement();
-			String query = "SELECT * FROM medicos WHERE codMedico = \"" + codMedico + "\"";
+			String query = "SELECT * FROM medicos WHERE codMedico = " + codMedico ;
 			ResultSet rs = sentencia.executeQuery(query);
 			while (rs.next()) {
 				respuesta = true;
 				rs.close();
 				sentencia.close();
 			}
-			if (respuesta == true) {
+			
+			if (respuesta == true) 
+			{
 
-				//JOptionPane.showMessageDialog(null, "Medico ya registrado!", "Error", JOptionPane.ERROR_MESSAGE);
 				return false;
 				
-			} else {
+			} 
+			else 
+			{
 				sentencia = conn.createStatement();
 				query = "INSERT INTO `medicos`(`codMedico`, `password`, `nombreYApellido`)  VALUES(\"" + codMedico
 						+ "\",\"" + password + "\",\"" + nombreYApellido + "\")";
@@ -288,7 +331,7 @@ public class SQLiteJDBC {
   		mySQLCon.close();
       
     }
-  
+  */
 }
   
   
