@@ -89,7 +89,7 @@ public class VentanaRegistrar extends JFrame
 						{
 							Usuario u = new Usuario(txtUsuario.getText(),String.valueOf(txtContrasena.getPassword()));
 							 
-							if(!u.Existe(txtUsuario.getText()))
+							if(!u.Existe())
 							{
 								u.Guardar();
 								JOptionPane.showMessageDialog(null, "TODO BIEN, ACA IRIA A LA PANTALLA PRINCIPAL");

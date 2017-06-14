@@ -3,6 +3,8 @@ package farm;
 import farm.SQLiteJDBC;
 import java.sql.*;
 
+import javax.swing.JOptionPane;
+
 public class Usuario 
 {
 	public String UserName;
@@ -14,6 +16,12 @@ public class Usuario
 		this.Password = "";
 	}
 	
+	public Usuario(int Codigo)
+	{
+		
+	}
+
+	
 	public Usuario(String UserName,String Password)
 	{
 		this.UserName = UserName;
@@ -22,52 +30,56 @@ public class Usuario
 
 	
 	
-	public boolean Guardar()
+	public void Guardar()
 	{
 		try
 		{
-			if (this.UserName != "" && this.Password != "")
-			{
-				SQLiteJDBC.conectar();
-				SQLiteJDBC.ejecutarConsulta("INSERT INTO usuarios (username,password) VALUES ('" + this.UserName +"','"+ this.Password +"')","insert");
-				SQLiteJDBC.cerrar();
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			Connection conn = SQLiteJDBC.conectar();
+			
+			Statement sentencia = conn.createStatement();
+			
+			sentencia.executeUpdate("INSERT INTO usuarios (username,password) VALUES ('"+this.UserName+"','"+this.Password+"')");
+			conn.commit();
+
+			SQLiteJDBC.cerrar();
 						
 		}
 		catch ( Exception e ) 
 		{
-			return false;
+		
 		}
 		
 
 	}
 
 	
-	public boolean Existe(String UserName)
+	public boolean Existe()
 	{
 		try
 		{
-			SQLiteJDBC.conectar();
-			ResultSet rs = SQLiteJDBC.ejecutarConsulta("SELECT * FROM usuarios WHERE username = '" + UserName + "'","select");
+			boolean resultado;
 			
+			Connection conn = SQLiteJDBC.conectar();
+			
+			Statement sentencia = conn.createStatement();
+			
+			ResultSet rs = sentencia.executeQuery("SELECT * FROM usuarios WHERE username = '" + this.UserName + "'");
+			
+
 			if(rs.next())
 			{
-				SQLiteJDBC.cerrar();
-				return true;
+				resultado = true;
 			}
 			else
 			{
-				SQLiteJDBC.cerrar();
-				return false;
+				resultado = false;
 			}
 			
 			
-
+			SQLiteJDBC.cerrar();
+			
+			return resultado;
+			
 		}
 		catch ( Exception e ) 
 		{
@@ -76,26 +88,34 @@ public class Usuario
 		
 	}
 	
+
 	public boolean Valido()
 	{
 		try
 		{
-			SQLiteJDBC.conectar();
-			ResultSet rs = SQLiteJDBC.ejecutarConsulta("SELECT * FROM usuarios WHERE id = 1","select");
+			boolean resultado;
 			
+			Connection conn = SQLiteJDBC.conectar();
+			
+			Statement sentencia = conn.createStatement();
+			
+			ResultSet rs = sentencia.executeQuery("SELECT * FROM usuarios WHERE username = '" + this.UserName + "' and password = '" + this.Password + "'");
+			
+
 			if(rs.next())
 			{
-				SQLiteJDBC.cerrar();
-				return true;
+				resultado = true;
 			}
 			else
 			{
-				SQLiteJDBC.cerrar();
-				return false;
+				resultado = false;
 			}
 			
 			
-
+			SQLiteJDBC.cerrar();
+			
+			return resultado;
+			
 		}
 		catch ( Exception e ) 
 		{
@@ -103,36 +123,6 @@ public class Usuario
 		}
 		
 	}
-	
-	public boolean Obtener(int codigo)
-	{
-		try
-		{
-			SQLiteJDBC.conectar();
-			ResultSet rs = SQLiteJDBC.ejecutarConsulta("SELECT * FROM usuarios WHERE id = " + codigo + ";","select");
-			
-			if(rs.next())
-			{
-				this.UserName = rs.getString("username");
-				this.Password = rs.getString("password");
-				SQLiteJDBC.cerrar();
-				return true;
-			}
-			else
-			{
-				SQLiteJDBC.cerrar();
-				return false;
-			}
-
-		}
-		catch ( Exception e ) 
-		{
-			return false;
-		}
-		
-	}
-	
-	
 	
 
 	public String MostrarDatos()

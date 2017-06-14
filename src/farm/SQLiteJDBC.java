@@ -6,67 +6,47 @@ import javax.swing.JOptionPane;
 public  class SQLiteJDBC 
 {
 	private static Connection conn;
-	private static java.sql.Statement sentencia;
+	
 
-	public static void conectar() 
+	public static Connection conectar() 
 	{ 
 		
 		try 
 		{
+			if (conn == null)
+			{
 				Class.forName("org.sqlite.JDBC");
-				conn = DriverManager.getConnection("jdbc:sqlite:test.db");
+				conn = DriverManager.getConnection("jdbc:sqlite:C:/clinica.db");
 				conn.setAutoCommit(false);
+			}
+			return conn;
+				
 		} 
 		catch (ClassNotFoundException cnfe) 
 		{
 			JOptionPane.showMessageDialog(null, "No se encuentra el driver", "Error", JOptionPane.ERROR_MESSAGE);
-
+			return null;
 		} 
 		catch (SQLException sqle) 
 		{
 			JOptionPane.showMessageDialog(null, "Error al Intentar la conexion", "Error", JOptionPane.ERROR_MESSAGE);
+			return null;
 		}
 
-	
 	}
 
 	
-	public static ResultSet ejecutarConsulta(String query,String tipo_consulta) 
-	{ 
-		ResultSet rs = null;
-		
-		try 
-		{
-			
-			sentencia = conn.createStatement();
-			
-			if (tipo_consulta == "insert")
-			{
-				sentencia.executeUpdate(query);
-			}
-			
-			if (tipo_consulta == "select")
-			{
-				rs = sentencia.executeQuery(query);
-			}
-			
-			sentencia.close();
-
-		} 
-		catch ( Exception e ) 
-		{
-			JOptionPane.showMessageDialog(null, "Error al ejecutar la consulta", "Error", JOptionPane.ERROR_MESSAGE);
-		}
-
-		return rs;
-		
-	}
 	
 	public static void cerrar()
 	{
 		try
 		{
-			conn.close();
+			if (conn != null)
+			{
+				conn.close();
+				conn = null;
+			}
+			
 		}
 		catch ( Exception e ) 
 		{
@@ -75,6 +55,31 @@ public  class SQLiteJDBC
 		
 	}
 	
+	/*
+	public static void mostrarMedicos()
+	{
+		sentencia = null;
+		boolean respuesta = false;
+		try {
+			// Tabla Medicos: codMedico | password | nombreYApellido
+			sentencia = conn.createStatement();
+			String query = "SELECT * FROM medicos";
+			ResultSet rs = sentencia.executeQuery(query);
+			   ResultSetMetaData rsmd = rs.getMetaData();
+			   System.out.println("querying SELECT * FROM medicos");
+			   int columnsNumber = rsmd.getColumnCount();
+			   
+			 while (rs.next()) {
+			       for (int i = 1; i <= columnsNumber; i++) {
+			           if (i > 1) System.out.print(",  ");
+			           String columnValue = rs.getString(i);
+			           System.out.print(columnValue + " " + rsmd.getColumnName(i));
+			       }
+			       System.out.println("");
+			   }
+		} catch (Exception e) { }
+	}
+	*/
 	/*
 	 * CODIGO DEL SISTEMA BASE -- VIEJO -- UTILIZAR PARA COPIAR CODIGO
 	
@@ -321,24 +326,8 @@ public  class SQLiteJDBC
 	
 	////////////////////////////////////////////////////////////////////////
 	
-	
-   public static void main( String args[] ) throws SQLException
-    {
-  	  
-  	  SQLiteJDBC mySQLCon = new SQLiteJDBC();
-  	  mySQLCon.getConnection();
-  	  //crearTablaConsultas();
-  	  //mySQLCon.registrarP("222", "jorgito", "jorge perez");
-  	 // mySQLCon.crearTablaConsultas();
-  		//mySQLCon.registrarConsulta("222","998","Pulmonia cuadruple");
-  	  //mySQLCon.consultaPorMedico(998);
-  	   //mySQLCon.mostrarConsultas();
-  	  mySQLCon.mostrarMedicos();
-  		//System.out.println(mySQLCon.verificarUserYPassword("888", "pepe"));
-  		mySQLCon.close();
-      
-    }
-  */
+	*/
+  
 }
   
   
