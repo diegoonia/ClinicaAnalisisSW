@@ -54,7 +54,7 @@ public class VentanaRegistrar extends JFrame
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		setLocationRelativeTo(null);
 		txtUsuario = new JTextField();
 		txtUsuario.setBounds(167, 75, 194, 19);
 		contentPane.add(txtUsuario);

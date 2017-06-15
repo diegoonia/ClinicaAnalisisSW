@@ -1,5 +1,12 @@
 package farm;
 
+import java.awt.BorderLayout;
+import java.awt.EventQueue;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
@@ -11,9 +18,10 @@ import javax.swing.*;
 import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.*;
-public class Menu {
 
-	private JFrame frame;
+public class Menu extends JFrame {
+
+	private JPanel contentPane;
 
 	/**
 	 * Launch the application.
@@ -22,8 +30,8 @@ public class Menu {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					Menu window = new Menu();
-					window.frame.setVisible(true);
+					Menu frame = new Menu();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -32,22 +40,17 @@ public class Menu {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public Menu() {
-		initialize();
-	}
+		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+		setBounds(100, 100, 450, 103);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		contentPane.setLayout(new BorderLayout(0, 0));
+		setContentPane(contentPane);
 
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 300);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
-
-		frame.setLocationRelativeTo(null);
+		setLocationRelativeTo(null);
 		
 		DatosDelPaciente dp = new DatosDelPaciente();
 		DatosDelMedico dm = new DatosDelMedico();
@@ -56,7 +59,7 @@ public class Menu {
 		ListadoDeEnfermedadesPorMedico lem = new ListadoDeEnfermedadesPorMedico();
 		
 		JMenuBar menuBar = new JMenuBar();
-		frame.setJMenuBar(menuBar);
+		setJMenuBar(menuBar);
 		
 		JMenu mnIngresoDeDatos = new JMenu("Ingreso de Datos");
 		menuBar.add(mnIngresoDeDatos);
@@ -108,4 +111,5 @@ public class Menu {
 		});
 		mnInformes.add(mntmListadoDeEnfermedades);
 	}
+
 }

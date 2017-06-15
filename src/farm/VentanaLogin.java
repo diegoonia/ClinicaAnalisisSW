@@ -53,7 +53,7 @@ public class VentanaLogin extends JFrame {
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
-		
+		setLocationRelativeTo(null);
 		txtUsuario = new JTextField();
 		txtUsuario.setBounds(147, 78, 214, 20);
 		contentPane.add(txtUsuario);
@@ -74,7 +74,9 @@ public class VentanaLogin extends JFrame {
 						Usuario u = new Usuario(txtUsuario.getText(),String.valueOf(txtContrasena.getPassword()));
 						if(u.Valido())
 						{
-							JOptionPane.showMessageDialog(null, "TODO BIEN, ACA IRIA A LA PANTALLA PRINCIPAL");
+							Menu m = new Menu();
+							m.setVisible(true);
+							dispose();
 						}
 						else
 						{
@@ -103,7 +105,6 @@ public class VentanaLogin extends JFrame {
 		JButton btnRegistrarse = new JButton("REGISTRARSE");
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				//VentanaRegistrar vr = new VentanaRegistrar();
 				VentanaRegistrar.abrir();
 				dispose();
 				
