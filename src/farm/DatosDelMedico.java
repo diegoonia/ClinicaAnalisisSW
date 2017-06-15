@@ -52,7 +52,7 @@ public class DatosDelMedico extends JFrame {
 
 		
 		JLabel lblNewLabel = new JLabel("Codigo del Medico");
-		lblNewLabel.setBounds(10, 11, 98, 14);
+		lblNewLabel.setBounds(10, 11, 234, 14);
 		contentPane.add(lblNewLabel);
 		
 		txtCodigoMedico = new JTextField();
