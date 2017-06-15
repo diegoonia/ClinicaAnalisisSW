@@ -92,7 +92,7 @@ public class VentanaRegistrar extends JFrame
 							if(!u.Existe())
 							{
 								u.Guardar();
-								JOptionPane.showMessageDialog(null, "TODO BIEN, ACA IRIA A LA PANTALLA PRINCIPAL");
+								JOptionPane.showMessageDialog(null, "REGISTRADO CON EXITO");
 							}
 							else
 							{
