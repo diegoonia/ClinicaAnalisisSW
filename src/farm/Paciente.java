@@ -19,63 +19,65 @@ public class Paciente
 		this.Codigo = Codigo;
 		this.NombreYApellido = NombreYApellido;
 	}
-
 	
 	
-	public boolean Guardar()
+	public void Guardar()
 	{
 		try
 		{
-			if (this.Codigo != null && this.NombreYApellido != "")
-			{
-				SQLiteJDBC.conectar();
-				SQLiteJDBC.ejecutarConsulta("INSERT INTO paciente VALUES (" + this.Codigo +",'"+ this.NombreYApellido +"')","insert");
-				SQLiteJDBC.cerrar();
-				return true;
-			}
-			else
-			{
-				return false;
-			}
+			Connection conn = SQLiteJDBC.conectar();
+			
+			Statement sentencia = conn.createStatement();
+			
+			sentencia.executeUpdate("INSERT INTO pacientes (id,nombre_apellido) VALUES ('"+this.Codigo+"','"+this.NombreYApellido+"')");
+			conn.commit();
+
+			SQLiteJDBC.cerrar();
 						
 		}
 		catch ( Exception e ) 
 		{
-			return false;
+		
 		}
 		
 
 	}
 
-	
-	public boolean Obtener(int codigo)
+	public boolean Existe()
 	{
 		try
 		{
-			SQLiteJDBC.conectar();
-			ResultSet rs = SQLiteJDBC.ejecutarConsulta("SELECT * FROM paciente WHERE id = " + codigo,"select");
+			boolean resultado;
 			
+			Connection conn = SQLiteJDBC.conectar();
+			
+			Statement sentencia = conn.createStatement();
+			
+			ResultSet rs = sentencia.executeQuery("SELECT * FROM pacientes WHERE id = " + this.Codigo);
+			
+
 			if(rs.next())
 			{
-				this.Codigo = rs.getInt("id");
-				this.NombreYApellido = rs.getString("nombre_apellido");
-				SQLiteJDBC.cerrar();
-				return true;
+				resultado = true;
 			}
 			else
 			{
-				SQLiteJDBC.cerrar();
-				return false;
+				resultado = false;
 			}
-
+			
+			
+			SQLiteJDBC.cerrar();
+			
+			return resultado;
+			
 		}
 		catch ( Exception e ) 
 		{
 			return false;
 		}
-		
 	}
-
+	
+	
 	public String MostrarDatos()
 	{
 		return "Codigo: " + this.Codigo + " Nombre y Apellido:" + this.NombreYApellido;

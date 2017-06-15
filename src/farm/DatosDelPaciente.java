@@ -52,7 +52,7 @@ public class DatosDelPaciente {
 		frame.getContentPane().setLayout(null);
 		
 		JLabel lblNewLabel = new JLabel("Codigo del paciente:");
-		lblNewLabel.setBounds(10, 11, 105, 14);
+		lblNewLabel.setBounds(10, 11, 176, 14);
 		frame.getContentPane().add(lblNewLabel);
 		
 		txtCodPaciente = new JTextField();
@@ -66,7 +66,7 @@ public class DatosDelPaciente {
 		frame.getContentPane().add(txtNombrePaciente);
 		
 		JLabel lblNombreDelPaciente = new JLabel("Nombre del paciente:");
-		lblNombreDelPaciente.setBounds(10, 66, 105, 14);
+		lblNombreDelPaciente.setBounds(10, 66, 146, 14);
 		frame.getContentPane().add(lblNombreDelPaciente);
 		
 		JButton btnAceptar = new JButton("Aceptar");
@@ -75,7 +75,7 @@ public class DatosDelPaciente {
 			{
 				boolean datos_correctos = true;
 				
-				if (txtCodPaciente.getText() != "" || txtNombrePaciente.getText() != "")
+				if (txtCodPaciente.getText() == "" || txtNombrePaciente.getText() == "")
 				{
 					datos_correctos = false;
 					JOptionPane.showMessageDialog(null, "Debe ingresar un codigo y un nombre de paciente", "Error", JOptionPane.ERROR_MESSAGE);
@@ -95,7 +95,16 @@ public class DatosDelPaciente {
 				if (datos_correctos)
 				{
 					Paciente p = new Paciente(Integer.parseInt(txtCodPaciente.getText()),txtNombrePaciente.getText());
-					p.Guardar();
+					if (!p.Existe())
+					{
+						p.Guardar();
+						JOptionPane.showMessageDialog(null, "El paciente se registro con exito", "Error", JOptionPane.INFORMATION_MESSAGE);
+					}
+					else
+					{
+						JOptionPane.showMessageDialog(null, "Ya existe un medico con el codigo ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+					}
+					
 				}
 
 			}
