@@ -66,7 +66,7 @@ public class Menu {
 			public void actionPerformed(ActionEvent arg0) 
 			{
 				
-				dp.show(true);
+				dp.setVisible(true);
 			}
 		});
 		mnIngresoDeDatos.add(mntmDatosDelPaciente);
@@ -74,7 +74,7 @@ public class Menu {
 		JMenuItem mntmDatosDelMedico = new JMenuItem("Datos del Medico");
 		mntmDatosDelMedico.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
-				dm.show(true);
+				dm.setVisible(true);
 			}
 		});
 		mnIngresoDeDatos.add(mntmDatosDelMedico);
@@ -82,7 +82,7 @@ public class Menu {
 		JMenuItem mntmSituacionDePaciente = new JMenuItem("Situacion de Paciente");
 		mntmSituacionDePaciente.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
-				hp.show(true);
+				hp.setVisible(true);
 			}
 		});
 		mnIngresoDeDatos.add(mntmSituacionDePaciente);
@@ -94,7 +94,7 @@ public class Menu {
 		mntmListadoDePacientes.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				lpm.show();
+				lpm.setVisible(true);
 			}
 		});
 		mnInformes.add(mntmListadoDePacientes);
@@ -103,7 +103,7 @@ public class Menu {
 		mntmListadoDeEnfermedades.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) 
 			{
-				lem.show(true);
+				lem.setVisible(true);
 			}
 		});
 		mnInformes.add(mntmListadoDeEnfermedades);

@@ -206,6 +206,10 @@ public class HistorialPaciente extends JFrame {
 						SituacionPaciente sp = new SituacionPaciente(Integer.parseInt(txtCodPaciente.getText()),Integer.parseInt(txtCodMedico.getText()),txtDiagnostico.getText());
 						sp.Guardar();
 						JOptionPane.showMessageDialog(null, "Situacion guardad con exito", "Error", JOptionPane.INFORMATION_MESSAGE);
+						txtCodMedico.setText("");
+						txtCodPaciente.setText("");
+						txtDiagnostico.setText("");
+						setVisible(false);
 					}
 					else
 					{

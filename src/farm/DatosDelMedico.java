@@ -43,7 +43,7 @@ public class DatosDelMedico extends JFrame {
 	 */
 	public DatosDelMedico() {
 		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
-		setBounds(100, 100, 450, 300);
+		setBounds(100, 100, 450, 249);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -110,6 +110,10 @@ public class DatosDelMedico extends JFrame {
 						m.Guardar();
 
 						JOptionPane.showMessageDialog(null, "El medico se registro con exito", "Error", JOptionPane.INFORMATION_MESSAGE);
+						txtCodigoMedico.setText("");
+						txtEspecializacion.setText("");
+						txtNombreApellido.setText("");
+						setVisible(false);
 					}
 					else
 					{
@@ -121,12 +125,8 @@ public class DatosDelMedico extends JFrame {
 				
 			}
 		});
-		btnAceptar.setBounds(100, 195, 89, 23);
+		btnAceptar.setBounds(171, 179, 89, 23);
 		contentPane.add(btnAceptar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(233, 195, 98, 23);
-		contentPane.add(btnCancelar);
 	}
 
 }

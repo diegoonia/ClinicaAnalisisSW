@@ -44,7 +44,7 @@ public class DatosDelPaciente extends JFrame {
 	 */
 	public DatosDelPaciente() {
 		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
-		setBounds(100, 100, 450, 220);
+		setBounds(100, 100, 450, 205);
 		contentPane = new JPanel();
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
@@ -103,22 +103,21 @@ public class DatosDelPaciente extends JFrame {
 					{
 						p.Guardar();
 						JOptionPane.showMessageDialog(null, "El paciente se registro con exito", "Error", JOptionPane.INFORMATION_MESSAGE);
+						txtCodPaciente.setText("");
+						txtNombrePaciente.setText("");
+						setVisible(false);
 					}
 					else
 					{
-						JOptionPane.showMessageDialog(null, "Ya existe un medico con el codigo ingresado", "Error", JOptionPane.ERROR_MESSAGE);
+						JOptionPane.showMessageDialog(null, "Ya existe un paciente con el codigo ingresado", "Error", JOptionPane.ERROR_MESSAGE);
 					}
 					
 				}
 
 			}
 		});
-		btnAceptar.setBounds(67, 138, 89, 23);
+		btnAceptar.setBounds(165, 135, 89, 23);
 		contentPane.add(btnAceptar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.setBounds(276, 138, 89, 23);
-		contentPane.add(btnCancelar);
 	}
 
 }
