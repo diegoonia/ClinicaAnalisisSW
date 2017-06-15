@@ -1,21 +1,22 @@
 package farm;
 
-import java.awt.EventQueue;
-
-import javax.swing.JFrame;
-import javax.swing.JPanel;
 import java.awt.BorderLayout;
+import java.awt.EventQueue;
+import java.awt.event.*;
+
+import javax.swing.JButton;
+import javax.swing.JFrame;
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
+import javax.swing.JPanel;
 import javax.swing.JTextField;
-import javax.swing.JButton;
-import java.awt.event.ActionListener;
-import java.awt.event.ActionEvent;
-import farm.Paciente;
+import javax.swing.WindowConstants;
+import javax.swing.border.EmptyBorder;
+import javax.swing.JRootPane;
 
-public class DatosDelPaciente {
+public class DatosDelPaciente extends JFrame {
 
-	private JFrame frame;
+	private JPanel contentPane;
 	private JTextField txtCodPaciente;
 	private JTextField txtNombrePaciente;
 
@@ -26,8 +27,11 @@ public class DatosDelPaciente {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					DatosDelPaciente window = new DatosDelPaciente();
-					window.frame.setVisible(true);
+					DatosDelPaciente frame = new DatosDelPaciente();
+					frame.setVisible(true);
+					
+					frame.getRootPane().setWindowDecorationStyle(JRootPane.NONE);
+					
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -36,38 +40,38 @@ public class DatosDelPaciente {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public DatosDelPaciente() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 450, 232);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setDefaultCloseOperation(WindowConstants.HIDE_ON_CLOSE);
+		setBounds(100, 100, 450, 220);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
 		
+		this.setLocationRelativeTo(null);
+		
+		
+		
+
 		JLabel lblNewLabel = new JLabel("Codigo del paciente:");
 		lblNewLabel.setBounds(10, 11, 176, 14);
-		frame.getContentPane().add(lblNewLabel);
+		contentPane.add(lblNewLabel);
 		
 		txtCodPaciente = new JTextField();
 		txtCodPaciente.setBounds(10, 36, 105, 20);
-		frame.getContentPane().add(txtCodPaciente);
+		contentPane.add(txtCodPaciente);
 		txtCodPaciente.setColumns(10);
 		
 		txtNombrePaciente = new JTextField();
 		txtNombrePaciente.setColumns(10);
 		txtNombrePaciente.setBounds(10, 91, 378, 20);
-		frame.getContentPane().add(txtNombrePaciente);
+		contentPane.add(txtNombrePaciente);
 		
 		JLabel lblNombreDelPaciente = new JLabel("Nombre del paciente:");
 		lblNombreDelPaciente.setBounds(10, 66, 146, 14);
-		frame.getContentPane().add(lblNombreDelPaciente);
+		contentPane.add(lblNombreDelPaciente);
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
@@ -110,10 +114,11 @@ public class DatosDelPaciente {
 			}
 		});
 		btnAceptar.setBounds(67, 138, 89, 23);
-		frame.getContentPane().add(btnAceptar);
+		contentPane.add(btnAceptar);
 		
 		JButton btnCancelar = new JButton("Cancelar");
 		btnCancelar.setBounds(276, 138, 89, 23);
-		frame.getContentPane().add(btnCancelar);
+		contentPane.add(btnCancelar);
 	}
+
 }

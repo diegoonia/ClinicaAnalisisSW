@@ -1,8 +1,12 @@
 package farm;
 
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
 
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
 import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JTextField;
@@ -14,16 +18,21 @@ import java.awt.event.ActionListener;
 import java.awt.event.ActionEvent;
 import java.awt.event.FocusAdapter;
 import java.awt.event.FocusEvent;
+import java.awt.event.WindowAdapter;
+import java.awt.event.WindowEvent;
 import java.awt.event.ActionListener;
 
-public class HistorialPaciente {
 
+public class HistorialPaciente extends JFrame {
+
+	private JPanel contentPane;
 	private JFrame frame;
 	private JTextField txtCodPaciente;
 	private JTextField txtCodMedico;
 	private JTextField txtDiagnostico;
 	private boolean paciente_correcto = false;
 	private boolean medico_correcto = false;
+
 	/**
 	 * Launch the application.
 	 */
@@ -31,8 +40,8 @@ public class HistorialPaciente {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					HistorialPaciente window = new HistorialPaciente();
-					window.frame.setVisible(true);
+					HistorialPaciente frame = new HistorialPaciente();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -41,30 +50,25 @@ public class HistorialPaciente {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
 	public HistorialPaciente() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	
-	private void initialize() 
-	{
-		frame = new JFrame();
-		frame.setBounds(100, 100, 520, 229);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setBounds(100, 100, 450, 242);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		contentPane.setLayout(null);
+		this.setLocationRelativeTo(null);
 		
+
 		JLabel lblCodigoDelPaciente = new JLabel("Codigo del Paciente");
 		lblCodigoDelPaciente.setBounds(10, 11, 136, 14);
-		frame.getContentPane().add(lblCodigoDelPaciente);
+		contentPane.add(lblCodigoDelPaciente);
 		
 		JLabel lblCodigoDelMedico = new JLabel("Codigo del Medico");
 		lblCodigoDelMedico.setBounds(10, 64, 136, 14);
-		frame.getContentPane().add(lblCodigoDelMedico);
+		contentPane.add(lblCodigoDelMedico);
 		
 		
 		
@@ -73,13 +77,13 @@ public class HistorialPaciente {
 		lblPaciente.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblPaciente.setForeground(Color.RED);
 		lblPaciente.setBounds(242, 11, 252, 14);
-		frame.getContentPane().add(lblPaciente);
+		contentPane.add(lblPaciente);
 		
 		JLabel lblMedico = new JLabel("");
 		lblMedico.setForeground(Color.RED);
 		lblMedico.setFont(new Font("Tahoma", Font.BOLD, 11));
 		lblMedico.setBounds(242, 64, 252, 14);
-		frame.getContentPane().add(lblMedico);
+		contentPane.add(lblMedico);
 		
 		
 		
@@ -88,12 +92,12 @@ public class HistorialPaciente {
 		
 		txtCodMedico = new JTextField();
 		txtCodMedico.setBounds(146, 61, 86, 20);
-		frame.getContentPane().add(txtCodMedico);
+		contentPane.add(txtCodMedico);
 		txtCodMedico.setColumns(10);
 		
 		txtCodPaciente = new JTextField();
 		txtCodPaciente.setBounds(146, 8, 86, 20);
-		frame.getContentPane().add(txtCodPaciente);
+		contentPane.add(txtCodPaciente);
 		txtCodPaciente.setColumns(10);
 		
 		
@@ -185,10 +189,11 @@ public class HistorialPaciente {
 		txtCodMedico.addFocusListener(fa);
 		txtCodPaciente.addFocusListener(fa);
 		
+
 		
 		JLabel lblDiagnostico = new JLabel("Diagnostico");
 		lblDiagnostico.setBounds(10, 114, 136, 14);
-		frame.getContentPane().add(lblDiagnostico);
+		contentPane.add(lblDiagnostico);
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
@@ -214,20 +219,13 @@ public class HistorialPaciente {
 				}
 			}
 		});
-		btnAceptar.setBounds(80, 157, 89, 23);
-		frame.getContentPane().add(btnAceptar);
-		
-		JButton btnCancelar = new JButton("Cancelar");
-		btnCancelar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
-			}
-		});
-		btnCancelar.setBounds(319, 157, 89, 23);
-		frame.getContentPane().add(btnCancelar);
+		btnAceptar.setBounds(188, 157, 89, 23);
+		contentPane.add(btnAceptar);
 		
 		txtDiagnostico = new JTextField();
 		txtDiagnostico.setColumns(10);
 		txtDiagnostico.setBounds(146, 111, 278, 20);
-		frame.getContentPane().add(txtDiagnostico);
+		contentPane.add(txtDiagnostico);
 	}
+
 }

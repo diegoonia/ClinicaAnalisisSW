@@ -1,24 +1,31 @@
 package farm;
 
-import java.awt.Color;
+import java.awt.BorderLayout;
 import java.awt.EventQueue;
-import java.awt.Font;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.util.ArrayList;
 
-import javax.swing.DefaultListModel;
-import javax.swing.JButton;
 import javax.swing.JFrame;
-import javax.swing.JLabel;
-import javax.swing.JList;
-import javax.swing.JOptionPane;
+import javax.swing.JPanel;
+import javax.swing.border.EmptyBorder;
+
+import javax.swing.JFrame;
+import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.JTextField;
+import javax.swing.JLabel;
+import java.awt.Font;
+import java.awt.Color;
+import javax.swing.JList;
+import javax.swing.JOptionPane;
+import javax.swing.AbstractListModel;
+import javax.swing.JButton;
+import java.awt.event.ActionListener;
+import java.awt.event.ActionEvent;
+import java.util.*;
+import javax.swing.DefaultListModel;
 
-public class ListadoDeEnfermedades {
+public class ListadoDePacientesPorMedico extends JFrame {
 
-	private JFrame frame;
+	private JPanel contentPane;
 	private JTextField txtCodigoMedico;
 
 	/**
@@ -28,8 +35,8 @@ public class ListadoDeEnfermedades {
 		EventQueue.invokeLater(new Runnable() {
 			public void run() {
 				try {
-					ListadoDeEnfermedades window = new ListadoDeEnfermedades();
-					window.frame.setVisible(true);
+					ListadoDePacientesPorMedico frame = new ListadoDePacientesPorMedico();
+					frame.setVisible(true);
 				} catch (Exception e) {
 					e.printStackTrace();
 				}
@@ -38,46 +45,39 @@ public class ListadoDeEnfermedades {
 	}
 
 	/**
-	 * Create the application.
+	 * Create the frame.
 	 */
-	public ListadoDeEnfermedades() {
-		initialize();
-	}
-
-	/**
-	 * Initialize the contents of the frame.
-	 */
-	private void initialize() {
-		frame = new JFrame();
-		frame.setBounds(100, 100, 695, 502);
-		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-		frame.getContentPane().setLayout(null);
+	public ListadoDePacientesPorMedico() {
+		setDefaultCloseOperation(JFrame.HIDE_ON_CLOSE);
+		setBounds(100, 100, 622, 462);
+		contentPane = new JPanel();
+		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
+		setContentPane(contentPane);
+		this.setLocationRelativeTo(null);
 		
+
 		DefaultListModel<String> dlm = new DefaultListModel<String>();
 		JList<String> list = new JList<>(dlm);
 		list.setVisible(false);
+		contentPane.setLayout(null);
 		JScrollPane scrollpane = new JScrollPane(list);
-		scrollpane.setBounds(10, 113, 659, 298);
-		frame.getContentPane().add(scrollpane);
+		scrollpane.setBounds(10, 112, 589, 299);
+		contentPane.add(scrollpane);
 		
-		
-		
+		txtCodigoMedico = new JTextField();
+		txtCodigoMedico.setBounds(140, 11, 86, 20);
+		contentPane.add(txtCodigoMedico);
+		txtCodigoMedico.setColumns(10);
 		
 		JLabel lblCodigoDelMedico = new JLabel("Codigo del Medico");
 		lblCodigoDelMedico.setBounds(10, 14, 126, 14);
-		frame.getContentPane().add(lblCodigoDelMedico);
-		
-		txtCodigoMedico = new JTextField();
-		txtCodigoMedico.setBounds(123, 11, 86, 20);
-		frame.getContentPane().add(txtCodigoMedico);
-		txtCodigoMedico.setColumns(10);
-		
+		contentPane.add(lblCodigoDelMedico);
 		
 		JLabel lblEncabezadoInforme = new JLabel("");
 		lblEncabezadoInforme.setForeground(new Color(0, 102, 204));
 		lblEncabezadoInforme.setFont(new Font("Tahoma", Font.PLAIN, 19));
-		lblEncabezadoInforme.setBounds(10, 48, 659, 36);
-		frame.getContentPane().add(lblEncabezadoInforme);
+		lblEncabezadoInforme.setBounds(10, 48, 589, 36);
+		contentPane.add(lblEncabezadoInforme);
 		
 		JButton btnConsultar = new JButton("Consultar");
 		btnConsultar.addActionListener(new ActionListener() {
@@ -91,14 +91,14 @@ public class ListadoDeEnfermedades {
 					if (m.Codigo != null)
 					{
 						dlm.removeAllElements();
-						ArrayList<String> enfermedades = m.ObtenerEnfermedades();
+						ArrayList<String> pacientes = m.ObtenerPacientes();
 
-						for (String enfermedad:enfermedades)
+						for (String paciente:pacientes)
 						{
-							dlm.addElement(enfermedad);
+							dlm.addElement(paciente);
 						}
 						
-						lblEncabezadoInforme.setText("Las enfermedades atendidas por el medico " + m.NombreYApellido + " son las siguientes:");
+						lblEncabezadoInforme.setText("Los pacientes atendidos por el medico " + m.NombreYApellido + " son los siguientes:");
 						lblEncabezadoInforme.setVisible(true);
 						
 						list.setVisible(true);
@@ -119,11 +119,9 @@ public class ListadoDeEnfermedades {
 			
 			}
 		});
-		btnConsultar.setBounds(251, 10, 89, 23);
-		frame.getContentPane().add(btnConsultar);
+		btnConsultar.setBounds(267, 11, 95, 20);
+		contentPane.add(btnConsultar);
 		
-	
-		
-		 
 	}
+
 }
