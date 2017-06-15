@@ -8,6 +8,33 @@ public class Paciente
 	public Integer Codigo ;
 	public String NombreYApellido;
 	
+	
+	public Paciente(int Codigo)
+	{
+		try
+		{
+			boolean result;
+			
+			Connection conn = SQLiteJDBC.conectar();
+			
+			Statement sentencia = conn.createStatement();
+			ResultSet rs = sentencia.executeQuery("SELECT * FROM pacientes WHERE id = " + Codigo);
+			
+			if (rs.next()) 
+			{
+				this.NombreYApellido  = rs.getString("nombre_apellido");
+				this.Codigo  = rs.getInt("id");
+			}
+			
+			SQLiteJDBC.cerrar();
+						
+		}
+		catch ( SQLException e ) 
+		{
+		
+		}
+	}
+	
 	public Paciente()
 	{
 		this.Codigo = null;

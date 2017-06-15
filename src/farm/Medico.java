@@ -16,6 +16,32 @@ public class Medico
 		this.Especializacion = "";
 	}
 	
+	public Medico(int Codigo)
+	{
+		try
+		{
+			
+			Connection conn = SQLiteJDBC.conectar();
+			
+			Statement sentencia = conn.createStatement();
+			ResultSet rs = sentencia.executeQuery("SELECT * FROM medicos WHERE id = " + Codigo);
+			
+			if (rs.next()) 
+			{
+				this.NombreYApellido  = rs.getString("nombre_apellido");
+				this.Especializacion  = rs.getString("especializacion");
+				this.Codigo  = rs.getInt("id");
+			}
+			
+			SQLiteJDBC.cerrar();
+						
+		}
+		catch ( SQLException e ) 
+		{
+		
+		}
+	}
+	
 	public Medico(int Codigo,  String NombreYApellido, String Especializacion)
 	{
 		this.Codigo = Codigo;
