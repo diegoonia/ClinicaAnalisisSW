@@ -345,20 +345,6 @@ public  class SQLiteJDBC
 		} catch (Exception e) { }
 	}
 	
-	
-	////////////////////////////////////////////////////////////////////////
-	
-	
-  
-	 public static void main( String args[] ) throws SQLException
-	    {
-	  	  
-	  	  SQLiteJDBC mySQLCon = new SQLiteJDBC();
-	  	  mySQLCon.conectar();
-	  	  //crearTablaConsultas();
-	  		mySQLCon.mostrarUsuarios();
-	      
-	    }
 }
   
   
