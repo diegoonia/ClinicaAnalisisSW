@@ -13,6 +13,7 @@ import javax.swing.JButton;
 import java.awt.event.ActionListener;
 import java.sql.SQLException;
 import java.awt.event.ActionEvent;
+import  java.lang.Object;
 
 
 public class DatosDelMedico extends JFrame {
@@ -80,7 +81,8 @@ public class DatosDelMedico extends JFrame {
 		
 		JButton btnAceptar = new JButton("Aceptar");
 		btnAceptar.addActionListener(new ActionListener() {
-			public void actionPerformed(ActionEvent arg0) {
+			public void actionPerformed(ActionEvent arg0) 
+			{
 				
 				
 				boolean datos_correctos = true;
@@ -101,6 +103,26 @@ public class DatosDelMedico extends JFrame {
 					datos_correctos = false;
 					JOptionPane.showMessageDialog(null, "El codigo de medico debe ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
 				}
+
+				if (Integer.parseInt(txtCodigoMedico.getText()) < 1 ||  Integer.parseInt(txtCodigoMedico.getText()) > 99999)
+				{
+					datos_correctos = false;
+					JOptionPane.showMessageDialog(null, "El codigo debe estar en un rango de 1 a 99999", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				if (txtNombreApellido.getText().trim().length() < 1 || txtNombreApellido.getText().trim().length() > 40)
+				{
+					datos_correctos = false;
+					JOptionPane.showMessageDialog(null, "El nombre del medico debe poseer entre 1 y 40 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				if (txtEspecializacion.getText().trim().length() < 1 || txtEspecializacion.getText().trim().length() > 50)
+				{
+					datos_correctos = false;
+					JOptionPane.showMessageDialog(null, "La especialidad debe poseer entre 1 y 50 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				
 				
 				if (datos_correctos)
 				{
