@@ -4,7 +4,7 @@ import java.sql.*;
 
 import javax.swing.JOptionPane;
 
-import farm.SQLiteJDBC;
+import basededatos.SQLiteJDBC;
 
 public class Usuario 
 {
@@ -39,9 +39,11 @@ public class Usuario
 			
 			Statement sentencia = conn.createStatement();
 			
-			sentencia.executeUpdate("INSERT INTO usuarios (username,password) VALUES ('"+this.UserName+"','"+this.Password+"')");
+			sentencia.execute("INSERT INTO `usuarios`(`username`,`password`) VALUES (\""+this.UserName+"\",\""+this.Password+"\")");
+			
+			sentencia.close();
 			conn.commit();
-
+			
 			SQLiteJDBC.cerrar();
 						
 		}

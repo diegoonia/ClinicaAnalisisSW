@@ -1,4 +1,4 @@
-package farm;
+package ventanas;
 
 import java.awt.BorderLayout;
 import java.awt.EventQueue;
@@ -6,6 +6,9 @@ import java.awt.EventQueue;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
 import javax.swing.border.EmptyBorder;
+
+import farm.Usuario;
+
 import javax.swing.JTextField;
 import javax.swing.JButton;
 import javax.swing.JLabel;
@@ -17,13 +20,13 @@ import java.awt.event.ActionEvent;
 import java.awt.Dimension;
 import java.awt.Font;
 import java.awt.HeadlessException;
+import java.awt.Color;
 
 public class VentanaLogin extends JFrame {
 
 	private JPanel contentPane;
 	private JTextField txtUsuario;
 	private JPasswordField txtContrasena;
-	private static SQLiteJDBC mySQLCon;
 
 	/**
 	 * Launch the application.
@@ -50,16 +53,20 @@ public class VentanaLogin extends JFrame {
 		setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		setBounds(100, 100, 450, 300);
 		contentPane = new JPanel();
+		contentPane.setBackground(Color.WHITE);
+		setResizable(false);
 		contentPane.setBorder(new EmptyBorder(5, 5, 5, 5));
 		setContentPane(contentPane);
 		contentPane.setLayout(null);
 		setLocationRelativeTo(null);
 		txtUsuario = new JTextField();
-		txtUsuario.setBounds(147, 78, 214, 20);
+		txtUsuario.setBounds(147, 102, 214, 20);
 		contentPane.add(txtUsuario);
 		txtUsuario.setColumns(10);
 		
-		JButton btnIngresar = new JButton("INGRESAR");
+		JButton btnIngresar = new JButton("Ingresar");
+		btnIngresar.setForeground(new Color(255, 255, 255));
+		btnIngresar.setBackground(new Color(102, 153, 204));
 		btnIngresar.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent arg0) {
 				
@@ -74,8 +81,7 @@ public class VentanaLogin extends JFrame {
 						Usuario u = new Usuario(txtUsuario.getText(),String.valueOf(txtContrasena.getPassword()));
 						if(u.Valido())
 						{
-							Menu m = new Menu();
-							m.setVisible(true);
+							VentanaMenu.abrir();
 							dispose();
 						}
 						else
@@ -91,18 +97,22 @@ public class VentanaLogin extends JFrame {
 			}
 		});
 		
-		btnIngresar.setBounds(48, 198, 140, 23);
+		btnIngresar.setBounds(51, 226, 140, 23);
 		contentPane.add(btnIngresar);
 		
 		JLabel lblUsuario = new JLabel("USUARIO");
-		lblUsuario.setBounds(25, 81, 67, 17);
+		lblUsuario.setForeground(new Color(102, 153, 204));
+		lblUsuario.setBounds(25, 104, 67, 17);
 		contentPane.add(lblUsuario);
 		
 		JLabel lblContrasena = new JLabel("CONTRASE\u00D1A");
-		lblContrasena.setBounds(25, 125, 104, 17);
+		lblContrasena.setForeground(new Color(102, 153, 204));
+		lblContrasena.setBounds(25, 148, 104, 17);
 		contentPane.add(lblContrasena);
 		
-		JButton btnRegistrarse = new JButton("REGISTRARSE");
+		JButton btnRegistrarse = new JButton("Registrarse");
+		btnRegistrarse.setForeground(new Color(255, 255, 255));
+		btnRegistrarse.setBackground(new Color(102, 153, 204));
 		btnRegistrarse.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
 				VentanaRegistrar.abrir();
@@ -110,17 +120,18 @@ public class VentanaLogin extends JFrame {
 				
 			}
 		});
-		btnRegistrarse.setBounds(226, 198, 135, 23);
+		btnRegistrarse.setBounds(225, 226, 135, 23);
 		contentPane.add(btnRegistrarse);
 		
 		txtContrasena = new JPasswordField();
-		txtContrasena.setBounds(147, 123, 214, 20);
+		txtContrasena.setBounds(147, 146, 214, 20);
 		contentPane.add(txtContrasena);
 		
-		JLabel lblLogin = new JLabel("LOGIN");
-		lblLogin.setFont(new Font("Tahoma", Font.BOLD, 16));
+		JLabel lblLogin = new JLabel("Login");
+		lblLogin.setForeground(new Color(102, 153, 204));
+		lblLogin.setFont(new Font("Calibri", Font.BOLD, 32));
 		lblLogin.setSize(new Dimension(25, 25));
-		lblLogin.setBounds(168, 11, 74, 30);
+		lblLogin.setBounds(173, 25, 111, 31);
 		contentPane.add(lblLogin);
 	}
 }

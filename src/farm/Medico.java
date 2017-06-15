@@ -3,7 +3,7 @@ package farm;
 import java.sql.*;
 import java.util.*;
 
-import farm.SQLiteJDBC;
+import basededatos.SQLiteJDBC;
 
 public class Medico 
 {

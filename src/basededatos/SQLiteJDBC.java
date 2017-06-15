@@ -1,4 +1,4 @@
-package farm;
+package basededatos;
 
 import java.sql.*;
 import javax.swing.JOptionPane;
@@ -6,7 +6,7 @@ import javax.swing.JOptionPane;
 public  class SQLiteJDBC 
 {
 	private static Connection conn;
-	
+	private static java.sql.Statement sentencia;
 
 	public static Connection conectar() 
 	{ 
@@ -16,7 +16,7 @@ public  class SQLiteJDBC
 			if (conn == null)
 			{
 				Class.forName("org.sqlite.JDBC");
-				conn = DriverManager.getConnection("jdbc:sqlite:C:/clinica.db");
+				conn = DriverManager.getConnection("jdbc:sqlite:clinica.db");
 				conn.setAutoCommit(false);
 			}
 			return conn;
@@ -35,7 +35,6 @@ public  class SQLiteJDBC
 
 	}
 
-	
 	
 	public static void cerrar()
 	{
@@ -276,6 +275,29 @@ public  class SQLiteJDBC
 			   }
 		} catch (Exception e) { }
 	}
+	*/
+	public static void mostrarUsuarios(){
+		sentencia = null;
+		boolean respuesta = false;
+		try {
+			// Tabla Medicos: codMedico | password | nombreYApellido
+			sentencia = conn.createStatement();
+			String query = "SELECT * FROM usuarios";
+			ResultSet rs = sentencia.executeQuery(query);
+			   ResultSetMetaData rsmd = rs.getMetaData();
+			   System.out.println("querying SELECT * FROM usuarios");
+			   int columnsNumber = rsmd.getColumnCount();
+			   
+			 while (rs.next()) {
+			       for (int i = 1; i <= columnsNumber; i++) {
+			           if (i > 1) System.out.print(",  ");
+			           String columnValue = rs.getString(i);
+			           System.out.print(columnValue + " " + rsmd.getColumnName(i));
+			       }
+			       System.out.println("");
+			   }
+		} catch (Exception e) { }
+	}
 	
 	public static void mostrarMedicos(){
 		sentencia = null;
@@ -326,8 +348,17 @@ public  class SQLiteJDBC
 	
 	////////////////////////////////////////////////////////////////////////
 	
-	*/
+	
   
+	 public static void main( String args[] ) throws SQLException
+	    {
+	  	  
+	  	  SQLiteJDBC mySQLCon = new SQLiteJDBC();
+	  	  mySQLCon.conectar();
+	  	  //crearTablaConsultas();
+	  		mySQLCon.mostrarUsuarios();
+	      
+	    }
 }
   
   

@@ -2,7 +2,7 @@ package farm;
 
 import java.sql.*;
 
-import farm.SQLiteJDBC;
+import basededatos.SQLiteJDBC;
 
 public class SituacionPaciente 
 {
