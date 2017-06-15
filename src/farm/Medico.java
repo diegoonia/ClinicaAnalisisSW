@@ -2,6 +2,7 @@ package farm;
 
 import farm.SQLiteJDBC;
 import java.sql.*;
+import java.util.*;
 
 public class Medico 
 {
@@ -32,6 +33,11 @@ public class Medico
 				this.Especializacion  = rs.getString("especializacion");
 				this.Codigo  = rs.getInt("id");
 			}
+			else
+			{
+				//No encontrado
+				this.Codigo  = null;
+			}
 			
 			SQLiteJDBC.cerrar();
 						
@@ -41,6 +47,7 @@ public class Medico
 		
 		}
 	}
+	
 	
 	public Medico(int Codigo,  String NombreYApellido, String Especializacion)
 	{
@@ -72,6 +79,67 @@ public class Medico
 		
 
 	}
+	
+	public ArrayList<String> ObtenerPacientes()
+	{
+		try
+		{
+			ArrayList<String> pacientes = new ArrayList<String>();
+			
+			Connection conn = SQLiteJDBC.conectar();
+			
+			Statement sentencia = conn.createStatement();
+			
+			ResultSet rs = sentencia.executeQuery("SELECT DISTINCT(p.nombre_apellido) as paciente FROM situacion_paciente sp INNER JOIN pacientes p ON (sp.paciente_id = p.id) WHERE sp.medico_id = " + this.Codigo);
+			
+
+			while(rs.next())
+			{
+				pacientes.add(rs.getString("paciente"));
+			}
+			
+			
+			SQLiteJDBC.cerrar();
+			
+			return pacientes;
+			
+		}
+		catch ( Exception e ) 
+		{
+			return null;
+		}
+	}
+	
+	public ArrayList<String> ObtenerEnfermedades()
+	{
+		try
+		{
+			ArrayList<String> pacientes = new ArrayList<String>();
+			
+			Connection conn = SQLiteJDBC.conectar();
+			
+			Statement sentencia = conn.createStatement();
+			
+			ResultSet rs = sentencia.executeQuery("SELECT DISTINCT(sp.diagnostico) as diagnostico FROM situacion_paciente sp INNER JOIN pacientes p ON (sp.paciente_id = p.id) WHERE sp.medico_id = " + this.Codigo);
+			
+
+			while(rs.next())
+			{
+				pacientes.add(rs.getString("diagnostico"));
+			}
+			
+			
+			SQLiteJDBC.cerrar();
+			
+			return pacientes;
+			
+		}
+		catch ( Exception e ) 
+		{
+			return null;
+		}
+	}
+	
 	
 
 	public boolean Existe()
