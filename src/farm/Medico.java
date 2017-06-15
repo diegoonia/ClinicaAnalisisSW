@@ -1,8 +1,9 @@
 package farm;
 
-import farm.SQLiteJDBC;
 import java.sql.*;
 import java.util.*;
+
+import farm.SQLiteJDBC;
 
 public class Medico 
 {

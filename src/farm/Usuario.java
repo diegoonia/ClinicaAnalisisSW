@@ -1,9 +1,10 @@
 package farm;
 
-import farm.SQLiteJDBC;
 import java.sql.*;
 
 import javax.swing.JOptionPane;
+
+import farm.SQLiteJDBC;
 
 public class Usuario 
 {

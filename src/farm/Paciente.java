@@ -1,7 +1,8 @@
 package farm;
 
-import farm.SQLiteJDBC;
 import java.sql.*;
+
+import farm.SQLiteJDBC;
 
 public class Paciente 
 {

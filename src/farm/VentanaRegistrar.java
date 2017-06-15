@@ -14,9 +14,11 @@ import javax.swing.JPanel;
 import javax.swing.JPasswordField;
 import javax.swing.JTextField;
 import javax.swing.border.EmptyBorder;
+
+import farm.Usuario;
+
 import java.awt.Font;
 import java.awt.HeadlessException;
-import farm.Usuario;
 
 public class VentanaRegistrar extends JFrame 
 {

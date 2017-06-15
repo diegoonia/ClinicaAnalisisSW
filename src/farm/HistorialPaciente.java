@@ -209,6 +209,8 @@ public class HistorialPaciente extends JFrame {
 						txtCodMedico.setText("");
 						txtCodPaciente.setText("");
 						txtDiagnostico.setText("");
+						lblMedico.setText("");
+						lblPaciente.setText("");
 						setVisible(false);
 					}
 					else
