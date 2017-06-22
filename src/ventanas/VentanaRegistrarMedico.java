@@ -27,6 +27,7 @@ public class VentanaRegistrarMedico extends JFrame {
 	private JTextField txtNombreApellido;
 	private JTextField txtEspecializacion;
 
+
 	/**
 	 * Launch the application.
 	 */
@@ -43,6 +44,20 @@ public class VentanaRegistrarMedico extends JFrame {
 		});
 	}
 
+	private boolean validarLetras(String s)
+	{
+		for (int i = 0; i < s.length(); i++) 
+		{
+	        char charAt2 = s.charAt(i);
+	        if (!(Character.isLetter(charAt2) || Character.isSpaceChar(charAt2))) 
+	        {
+	            return false;
+	        }
+	        
+	        
+	    }
+		return true;
+	}
 	/**
 	 * Create the frame.
 	 */
@@ -111,7 +126,25 @@ public class VentanaRegistrarMedico extends JFrame {
 				catch (NumberFormatException e) 
 				{
 					datos_correctos = false;
-					JOptionPane.showMessageDialog(null, "El codigo de medico debe ser numerico", "Error", JOptionPane.ERROR_MESSAGE);
+					JOptionPane.showMessageDialog(null, "El codigo de medico debe ser entero", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				if ((txtCodigoMedico.getText()).length() != 5)
+				{
+					datos_correctos = false;
+					JOptionPane.showMessageDialog(null, "El codigo debe tener una longitud de 5 caracteres", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				if (!validarLetras(txtNombreApellido.getText()))
+				{
+					datos_correctos = false;
+					JOptionPane.showMessageDialog(null, "El nombre y apellido deben ser letras del alfabeto", "Error", JOptionPane.ERROR_MESSAGE);
+				}
+				
+				if (!validarLetras(txtEspecializacion.getText()))
+				{
+					datos_correctos = false;
+					JOptionPane.showMessageDialog(null, "La especializacion debe contener letras del alfabeto", "Error", JOptionPane.ERROR_MESSAGE);
 				}
 
 				if (Integer.parseInt(txtCodigoMedico.getText()) < 1 ||  Integer.parseInt(txtCodigoMedico.getText()) > 99999)

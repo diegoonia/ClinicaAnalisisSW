@@ -36,6 +36,8 @@ public class VentanaRegistrarDiagnostico extends JFrame {
 	private JTextField txtDiagnostico;
 	private boolean paciente_correcto = false;
 	private boolean medico_correcto = false;
+	private JLabel lblPacienteNombre;
+	private JLabel lblMedicoNombre;
 
 	/**
 	 * Launch the application.
@@ -76,6 +78,16 @@ public class VentanaRegistrarDiagnostico extends JFrame {
 		lblCodigoDelMedico.setForeground(new Color(102, 153, 204));
 		lblCodigoDelMedico.setBounds(40, 75, 136, 14);
 		contentPane.add(lblCodigoDelMedico);
+		
+		lblPacienteNombre = new JLabel("");
+		lblPacienteNombre.setForeground(Color.RED);
+		lblPacienteNombre.setBounds(164, 57, 136, 14);
+		contentPane.add(lblPacienteNombre);
+		
+		lblMedicoNombre = new JLabel("");
+		lblMedicoNombre.setForeground(Color.RED);
+		lblMedicoNombre.setBounds(165, 95, 136, 14);
+		contentPane.add(lblMedicoNombre);
 
 		
 		txtCodMedico = new JTextField();
@@ -108,10 +120,12 @@ public class VentanaRegistrarDiagnostico extends JFrame {
 								Medico m = new Medico(Integer.parseInt(txtCodMedico.getText()));
 								if (m.Codigo != null)
 								{
+									lblMedicoNombre.setText(m.NombreYApellido);
 									medico_correcto = true;
 								}
 								else
 								{
+									lblMedicoNombre.setText("");
 									medico_correcto = false;
 								}
 							}
@@ -135,10 +149,12 @@ public class VentanaRegistrarDiagnostico extends JFrame {
 								Paciente p = new Paciente(Integer.parseInt(txtCodPaciente.getText()));
 								if (p.Codigo != null)
 								{
+									lblPacienteNombre.setText(p.NombreYApellido);
 									paciente_correcto = true;
 								}
 								else
 								{
+									lblPacienteNombre.setText("");
 									paciente_correcto = false;
 								}
 							}
